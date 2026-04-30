@@ -63,12 +63,14 @@ By the final review, this README should clearly show:
 
 | Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
 | --------------        | ------------------------------- | --------------   | -------------------------------- |
-| `Mrugendra Vasmatkar` | `[Electronics / Coding / App ]` | `Documentation`  | `Documentation, Gift of Gab `|
-| `Jyoti Bagate`        | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| Kavish Chauhan        | `[Electronics / Coding / App ]` | `Documentation`  | `Documentation, Gift of Gab `    |
+| Chinmay Bahalkar      | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| Pratyush Tripthi      |                                 |                  |                                  |
+| Nimesh Prabhu         |                                 |                  |                                  |
 
 ## 1.3 Project Title
 
-`"Project Project"`
+`Real Time edge detection using FPGA`
 
 `(because Project-or)`
 
@@ -76,7 +78,7 @@ By the final review, this README should clearly show:
 
 ## 1.4 One-Line Pitch
 
-`A projected, fully customizable time portal where engineering education is done through PUBG battlefield in the comfort of our home`
+`A hardware-optimized image processing engine that implements Min-Max Homogeneity Thresholding on FPGA to achieve high-precision edge detection through localized pixel variance analysis.`
 
 ## 1.5 Expanded Project Idea
 
@@ -87,7 +89,9 @@ In 1–2 paragraphs, explain:
 - what technologies are involved.
 
 **Response:**  
-`A projected and fully customizable time portal can transform engineering education into an immersive PUBG-style battlefield experience from the comfort of home. In this environment, students can learn engineering concepts by entering a virtual battlefield where challenges, obstacles, and missions are designed around real technical problems. Instead of passively studying theory, learners actively apply concepts such as electronics, coding, sensors, robotics, mechanics, and system design to complete missions, solve problems, and progress through different levels. This approach makes engineering education more interactive, engaging, and practical by combining gaming, simulation, and hands-on problem-solving in a familiar and exciting format.`
+`This project implements a high-efficiency hardware accelerator for edge detection using the **Min-Max Homogeneity Thresholding** technique on an FPGA. Unlike standard gradient-based methods like Sobel, this approach analyzes localized pixel variance by calculating the difference between the maximum and minimum intensity values within a $3 \times 3$ sliding window. By offloading this computationally intensive task from a CPU to dedicated FPGA logic, the system achieves massive throughput and deterministic latency, making it ideal for high-speed image analysis where consistency is critical.
+
+The experience created is one of **instantaneous visual feedback and precision**. By utilizing on-chip Block RAM (BRAM) and a pipelined architecture, the project demonstrates how hardware can process static images with near-zero delay, transforming raw pixel data into a high-contrast map of structural boundaries. The technology stack centers on **Verilog/SystemVerilog** for hardware description, **Xilinx Vivado or Intel Quartus** for synthesis and implementation, and **Python/MATLAB** for pre-processing images into memory-initialization files (.COE/.HEX), bridging the gap between high-level algorithmic theory and low-level hardware execution.`
 
 ---
 
@@ -108,7 +112,13 @@ List what inspired the project.
 What makes your project original?
 
 **Response:**  
+**What it is:** A high-speed hardware accelerator that performs edge detection on static images using **Min-Max Homogeneity Thresholding**. Unlike standard methods that use complex derivatives, this project calculates the intensity "spread" within a sliding $3 \times 3$ window to identify structural boundaries.
 
+**The Experience:** It provides a **near-zero latency** processing environment where images are transformed into high-contrast edge maps instantly. By offloading the math to FPGA logic, it eliminates the "stutter" or delay found in software-based image processing.
+
+**Technologies Involved:** * **Hardware:** FPGA (Xilinx/Intel) using **Verilog/SystemVerilog**.
+* **Memory:** **Block RAM (BRAM)** and Line Buffers for high-speed pixel access.
+* **Software:** **Python** for image-to-HEX conversion and **Vivado** for hardware synthesis.
 
 ---
 
