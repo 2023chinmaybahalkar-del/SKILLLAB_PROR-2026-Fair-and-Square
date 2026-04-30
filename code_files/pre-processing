@@ -1,0 +1,49 @@
+import cv2
+import numpy as np
+import os
+
+# --- Configuration ---
+# Source: The original image you downloaded
+SOURCE_PATH = r"C:\Users\Kavish\Downloads\bull.jpeg"
+# Destination: Where the 128x128 grayscale version will be saved
+DEST_PATH = r"C:\Users\Kavish\Downloads\bull_processed.png" 
+
+TARGET_SIZE = 128  # FPGA expects a 128x128 grid
+
+def preprocess_and_save():
+    # 1. Load the image
+    if not os.path.exists(SOURCE_PATH):
+        print(f"Error: Could not find the file at {SOURCE_PATH}")
+        return
+
+    img = cv2.imread(SOURCE_PATH)
+    
+    # 2. Convert to Grayscale
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    
+    # 3. Resize to 128x128
+    # Using INTER_AREA for high-quality shrinking
+    resized_img = cv2.resize(gray_img, (TARGET_SIZE, TARGET_SIZE), interpolation=cv2.INTER_AREA)
+    
+    # 4. Clamp pixels
+    # Ensures no pixel is 255, keeping it reserved for FPGA commands
+    final_img = np.clip(resized_img, 0, 254).astype(np.uint8)
+
+    # 5. Save the processed image to the destination path
+    success = cv2.imwrite(DEST_PATH, final_img)
+    
+    if success:
+        print(f"--- Success! ---")
+        print(f"Processed image saved to: {DEST_PATH}")
+        print(f"Final Dimensions: {final_img.shape}")
+    else:
+        print("Error: Could not save the image.")
+
+    # 6. Show the result
+    cv2.imshow("Preprocessed Image (128x128)", final_img)
+    print("\nDisplaying image. Press any key to exit.")
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    preprocess_and_save()
