@@ -63,8 +63,8 @@ By the final review, this README should clearly show:
 
 | Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
 | --------------        | ------------------------------- | --------------   | -------------------------------- |
-| Kavish Chauhan        | `[Electronics / Coding / App ]` | `Documentation`  | `Documentation, Gift of Gab `    |
-| Chinmay Bahalkar      | `[Electronics / Fabrication]`   | `[Coding]`       | `Material Handling, Hardware`    |
+| Kavish Chauhan        | `                             ` | `             `  | `                           `    |
+| Chinmay Bahalkar      | `                           `   | `        `       | `                           `    |
 | Pratyush Tripthi      |                                 |                  |                                  |
 | Nimesh Prabhu         |                                 |                  |                                  |
 
