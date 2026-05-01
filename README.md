@@ -66,7 +66,7 @@ By the final review, this README should clearly show:
 | Kavish Chauhan        | Implementation of 1st method  | Documentation                | Technical Finesse                |
 | Chinmay Bahalkar      | Github Updation               | Overall Research             | Critical Idea Thinker            |
 | Pratyush Tripthi      | Research of 1st solution      | Implementation of 2nd method | Surgical Curiosity               |
-| Nimesh Prabhu         | Research of 2nd Solution      | Implementation of 2nd method | Unquestiong Dicsiplined Teamwork |
+| Nimesh Prabhu         | Research of 2nd Solution      | Implementation of 2nd method | Unquestioning Dicsiplined Teamwork |
 
 ## 1.3 Project Title
 
@@ -201,17 +201,7 @@ Interaction occurs through the Python Terminal and GUI. The user interacts with 
 
 ## 6.1 Concept Architecture/sketch/schematic
 
-Add an early sketch of the full idea.
-
-**Insert image below:**  
-`[Upload image and link here]`
-
-Example:
-
-```md
-
-```
-
+<img width="1548" height="746" alt="init" src="https://github.com/user-attachments/assets/4f9c307d-76e2-480a-9ac3-af396b56fdcb" />
 
 
 ## 6.2 Labeled Build Sketch/architecture/flow diagram/algorithm
@@ -328,36 +318,47 @@ Can acquire better board and achieve real time + better results.
 
 ## 10.1 Team Working Agreement
 
-Write how your team will work together.
+Tasks are divided on the basis of skill, experience, and confidence.
+- **How tasks are divided:**           
+Our team of four will divide responsibilities across the main technical domains. The member most comfortable with digital logic and hardware description will own FPGA development and Verilog design. The member with the strongest software background will own Python scripting, image preprocessing, and serial communication. Protocol design — the UART handshake, command byte structure, and timing decisions — will be a shared responsibility between the hardware and software leads since it sits at the boundary of both domains. Documentation, testing logs, and presentation preparation will be distributed across all four members, with one person designated to consolidate and maintain the final written record.
 
-Include:
+- **How decisions are made:**                      
+Decisions are made by the person who owns that layer. The rest of the team is consulted whenever a change affects more than one domain. No change that crosses a boundary is made unilaterally — both affected members must agree before implementation begins.
 
-- how tasks are divided,
-- how decisions are made,
-- how progress will be checked,
-- what happens if a task is delayed,
-- how documentation will be maintained.
+- **How progress will be checked:**                         
+Progress will be checked against working milestones rather than calendar dates. Our agreed milestones are: UART loopback working, full image transfer and echo working, edge detection returning correct values on test images, and the complete end-to-end pipeline working on a real photograph. Each milestone has a concrete pass condition so there is no ambiguity about whether it has been reached.
 
-**Response:**  
+- **What happens if a task is delayed:**                    
+If one member is blocked, the rest of the team continues on independent layers rather than waiting. When a member is stuck for more than one session, we pair-debug rather than reassign the task — ownership stays with the original member, but the problem is shared.
+
+- **How documentation will be maintained:**                      
+One designated member is responsible for keeping the documentation current after every session. All members agree to report what they worked on, what broke, and what was fixed at the end of each meeting so the log stays accurate.
 
 
 ## 10.2 Task Breakdown
 
 | Task ID | Task                    | Owner    | Estimated Hours | Deadline     | Dependency | Status |
 | ------- | ----------------------- | -------- | ---------------:| ------------ | ---------- | ------ |
-| T1      | `[Finalize concept]`    | `[Both]` | `2`             | `1st April`  | `None`     | `Done` |
+| T1      | Finalize concept    | All | 1.5            | 30th April | None    | Done |
+| T2| Initialise RaspberryPi for live feed| Pratyush| 0.25| 30th April| None| Cancelled|
+|T3| Learn complete theory| All| Throughout| 30th April| T1| Done|
+|T4| Write preprocessing script| Kavish| 0.25|30th April|T3|Done|
+|T5| Implement picture transfer over UART bw Laptop and FPGA| Kavish| 1|30th April|T1|Done|
+|T6| Block Design method Implementation| Pratyush and Nimesh|2|30th April|T1|Ongoing|
+|T7| Write and implement logic by RTL method| Kavish| 2|30th April|T5| Done|
+|T8| Maintain Github Repository and manage between members|Chinmay|Throughout|1st May|All|Done|
 
 
 ## 10.3 Responsibility Split
 
 | Area                 | Main Owner     | Support Owner |
 | -------------------- | ----------     | ------------- |
-| Concept              | `[Mrugendra]`  | `[Jyoti]`     |
-| Electronics          | `[]`           | `[]`          |
-| Coding               | `[]`           | `[]`          |
-| Mechanical build     | `[]`           | `[]`          |
-| Testing              | `[]`           | `[]`          |
-| Documentation        | `[]`           | `[]`          |
+| Concept              | `[Pratyush]`  | `[Chinmay & Nimesh]`     |
+| Electronics          | `[Kavish]`           | `[Nimesh]`          |
+| Coding               | `[Kavish]`           | `[-]`          |
+| Alternative     | `[Pratyush]`           | `[Nimesh]`          |
+| Testing              | `[Kavish]`           | `[Pratyush]`          |
+| Documentation        | `[Chinmay]`           | `[Kavish]`          |
 
 ---
 
@@ -375,16 +376,16 @@ Expected outcomes:
 - [x] BOM completed
 - [x] Purchase needs identified
 - [ ] Key uncertainty identified
-- [x] Basic feasibility tested
+- [ ] Basic feasibility tested
 
 ### Bi Hour 2 — Build Subsystems
 
 Expected outcomes:
 
-- [x] Electronics tests completed
+- [ ] Electronics tests completed
 - [ ] CAD / structure planning completed
-- [ ] App UI started if needed
-- [x] Mechanical concept tested
+- [x] App UI started if needed
+- [ ] Mechanical concept tested
 - [x] Main subsystems partially working
 
 ### Bi Hour 3 — Integrate
@@ -395,7 +396,7 @@ Expected outcomes:
 - [x] Electronics integrated
 - [x] Code connected to hardware
 - [ ] App connected if required
-- [x] First playable version exists
+- [ ] First playable version exists
 
 ### Bi Hour 4 — Refine and Finish
 
@@ -404,17 +405,17 @@ Expected outcomes:
 - [x] Technical bugs reduced
 - [x] Playtesting completed
 - [x] Improvements made
-- [x] Documentation completed
+- [ ] Documentation completed
 - [x] Final build ready
 
 ## 12.2  Update Log
 
 | Days   | Planned Goal   | What Actually Happened | What Changed   | Next Steps     |
 | ------ | -------------- | ---------------------- | -------------- | -------------- |
-| Day 1 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 2 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 3 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
-| Day 4 | `[Write here]` | `[Write here]`         | `[Write here]` | `[Write here]` |
+| 30th April | Learn the method | Partially started implementation         | Divided team into 2 | Parallel working |
+| 30th April | Initialise webcam feed | Returned RaspberryPi         | No Real time implementation | Change protocol from SPI to UART |
+| 30th April | Send, Store and Recieve image on FPGA | Took a lot of time and faced lot of issues         | Looking for alternatives | Alternative Implementation|
+| 30th April| Complete Primary Implementation | Done         | Confidence boosted | Improve Results |
 
 ---
 
@@ -424,15 +425,15 @@ Expected outcomes:
 
 | Risk                                                            | Type         | Likelihood | Impact   | Mitigation Plan                                                                       | Owner                |
 | --------------------------------------------------------------- | ------------ | ---------- | -------- | ------------------------------------------------------------------------------------- | -------------------- |
-| WiFi connection between laptop and ESP32 becomes unstable       | `Technical`  | `Medium`   | `High`   | Keep ESP32 close, ensure stable power supply, reduce network load, add fail-safe stop | `[Gopal]`           |
+| UART byte drop during image transmission       | Technical  | Medium   | High   | Send in 128-byte chunks with 15ms inter-chunk delay; FPGA stores all bytes before processing begins | Kavish           |
+| Board boot messages corrupting RX buffer|Technical|High|High|Python waits 3s on startup and flushes buffer before sending any data; FPGA ignores first 500ms via boot delay counter|Kavish|
+|Spartan-7 BRAM insufficient for dual buffer|Technical|Low|Medium|XC7S50 has 2700Kb BRAM; frame buffer (128KB) + result buffer (4KB) uses well under 10% of available BRAM|Pratyush|
+
 
 
 ## 13.2 Biggest Unknown Right Now
 
-What is the single biggest uncertainty in your project at this stage?
-
-**Response:**  
-
+The single biggest uncertainty is spatial resolution versus detection accuracy. The current 1×4 horizontal block architecture means the system is blind to vertical edges — a sharp transition between a dark pixel and a bright pixel in the same column across two rows produces no response at all. It is unclear whether shrinking the block further (to 1×2 or even per-pixel comparison) would produce cleaner edges or just amplify noise from UART transmission errors and JPEG compression artifacts. The threshold is a single global value applied uniformly across the entire image, so a low threshold that catches faint edges in dark regions simultaneously floods bright textured regions with false positives. Whether a more spatially aware algorithm can be implemented within the BRAM and logic constraints of the Spartan-7 without fundamentally redesigning the pipeline remains an open question.
 
 ---
 
@@ -442,13 +443,20 @@ What is the single biggest uncertainty in your project at this stage?
 
 | What Needs Testing     | How You Will Test It                                                                 | Success Condition                                                                                    |
 | ---------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| `[Wifi connection]`    | `[Check if motor spins via app button]`                                              | `[Both motors accurately respond to wifi signals]`                                                   |
-                       |
+|UART RX TX - single byte| Send 0xAB from Python, read response back using simple echo design|Received byte matches sent byte exactly|
+|UART RX TX — full image transfer|Send 16384 bytes, echo entire buffer back, compare with original in Python| Perfect match|
+|Boot garbage isolation| Open serial port, wait 3s, read and print all bytes before flushing| Discarded bytes are non-zero ASCII text; port is clean after flush|
+|FSM state progression|Watch LED display while Python runs full pipeline|LEDs advance through states 0→1→2→3→4→5→6→7→8 and return to 1 without freezing|
 ## 14.2 Testing and Debugging Log
 
 | Date          | Problem Found                         | Type         | What You Tried                                | Result               | Next Action                                    |
 | ------------- | ------------------------------------- | ------------ | --------------------------------------------- | -------------------- | ---------------------------------------------- |
-| `18th April`  | `Car not balancing properly`          | `Mechanical` | `Add low-friction caster support to one side` | `Worked`             | `improve caster structure`                     |
+|30th April|FPGA echoed wrong bytes |Logic bug|Inspected top_level.v — TX was reading addr_ptr after it had already been incremented by RX|Identified race condition: TX was sending the next address not the current one|Redesign as two-phase FSM: receive all bytes first, then transmit all bytes|
+|30th April|Transfer stalled at 8192 bytes|Timing bug|Added progress prints to Python; checked addr_ptr bit width in Verilog|TX firing simultaneously with RX was corrupting flow; Python sending too fast for UART to handle|Reduce chunk size to 64 bytes; add inter-chunk delay; separate RX and TX phases|
+|30th April|debug_result.png was completely black|Logic bug|Printed np.unique(results) — all values were ASCII text characters not 0 or 1|Board boot messages flooding serial buffer before Python could flush them|Add 3s sleep on Python startup before flushing; add 500ms boot delay counter in FPGA|
+|30th April|Received 3927 bytes instead of 1024 |Protocol bug|Decoded raw bytes — saw [CMD] and [INFO] strings — recognised as board bootloader output|Serial port was receiving board debug messages, not FPGA results|Implement boot delay in FPGA; flush serial buffer in Python after 3s wait|
+|30th April|Edge map showed recognisable edges on test image|—|Ran full pipeline with threshold = 30 on bull.jpeg|4096 bytes received; unique values [0, 1]; edge map displayed correct outlines|Tune threshold; test with additional images|
+|30th April|Wanted finer edge resolution|Algorithm limitation|Reduced block size from 16 to 4 pixels — updated pixel_buffer, split_logic and top_level|Spatial resolution improved from 16×1 to 4×1 pixel blocks; edge map noticeably sharper|Accept as current resolution limit; note vertical edge blindness as known limitation|
 
 
 ## 14.3 Playtesting Notes
@@ -461,7 +469,7 @@ What is the single biggest uncertainty in your project at this stage?
  
 `-`
 
-## 16 Build Photos
+# 16 Build Photos
 
 Final Output
 
@@ -508,38 +516,47 @@ Instead of using an onboard ARM processor for image capture, a Host PC (Python/O
 
 ## 18.1 Team Reflection
 
-What did your team do well?  
-What slowed you down?  
-How well did you manage time, tasks, and responsibilities?
-
-**Response:**  
+The team really had the will to work and make it work. Upon failure during implementation, two members of the team started from scratch a different implementation method while the first member was troubleshooting the primary method.       
+We could have been faster, but nothing was slowing us down.       
+Task division started to take shape with passing time. Members took responsibilities for the tasks assigned to them without any excuses or arguements.
 
 
 ## 18.2 Technical Reflection
 
-What did you learn about:
+**Electronics:**       
+The most important lesson was that digital signals have timing, not just values. A wire carrying a 1 means nothing without knowing when that 1 is valid relative to a clock edge. The entire debugging journey — dropped bytes, black images, stalled transfers — traced back to assuming signals were stable when they were still in transition. The CDC synchronizer in split_logic exists precisely because crossing clock domains without synchronization produces failures that look random but are deterministic.         
 
-- electronics,
-- coding,
-- mechanisms,
-- fabrication,
-- integration?
+**Coding:**          
+Hardware description is not software. Writing Verilog looks like writing code but the mental model has to be completely different — every always block runs simultaneously, every assignment has a propagation delay, and a bug does not throw an exception, it silently corrupts data across thousands of cycles. The discipline of defaulting every register at the top of an always block (setting tx_start <= 0 and pixel_valid <= 0 before the case statement) eliminated an entire class of latching bugs that were previously invisible.         
 
-**Response:**  
+**Mechanisms:**          
+The UART protocol itself is a mechanism — a carefully timed sequence of high and low voltages that only means anything if both ends agree on the bit period. Implementing it from scratch in Verilog rather than using an IP core made that visible. The 868-cycle bit period at 100MHz for 115200 baud is not a magic number — it is a physical timing relationship between the oscillator on the board and the baud rate generator in the laptop's USB chip.        
+
+**Fabrication:** -    
+
+**Integration:**          
+The hardest integration problem was not connecting modules together — it was making them agree on timing. The pixel buffer fires block_ready for exactly one clock cycle. The split logic needs that signal to have crossed three synchronizer flip-flops before it acts on it. The FSM needs to wait long enough after feeding the last pixel before reading the result. Getting all three layers to agree required understanding each module's timing independently before connecting them.
 
 
 ## 18.3 Design Reflection
 
-What did you learn about:
+**Designing:**         
+The most durable design decision was keeping the FSM strictly sequential — receive everything, then process everything, then transmit everything. Every attempt to overlap these phases to save time introduced race conditions that were harder to debug than the time saved was worth. Good hardware design, like good system design generally, benefits from clear phase boundaries even at the cost of throughput.      
 
-- designing ,
-- delight,
-- clarity,
-- physical interaction,
-- understanding,
-- iteration?
+**Delight:**        
+The first time a recognisable shape appeared in the edge map — even the coarse blocky version — was disproportionately satisfying relative to what the algorithm actually does. A few comparators and a subtractor, run 4096 times, produced something that looked like vision. That gap between the simplicity of the mechanism and the meaningfulness of the output is where the delight lives.         
 
-**Response:**  
+**Clarity:**           
+Every time something broke, the fix required making something more explicit — adding a dedicated state instead of relying on implicit timing, adding an LED display instead of guessing FSM position, adding a stall detector instead of waiting indefinitely. Clarity in hardware is not a style preference, it is a functional requirement. Ambiguous timing causes ambiguous behavior.         
+
+**Physical interaction:**        
+The USB cable is invisible as an interaction but it is doing significant work — carrying a custom protocol with a sentinel byte, a configuration byte, 16384 data bytes, and 4096 result bytes, all correctly sequenced and timed. Designing that protocol carefully (reserving 0xFF, chunking sends to respect baud rate, flushing boot garbage before communicating) made the physical layer reliable. The interaction the user sees — run script, image appears — is clean precisely because the physical layer underneath it is explicit.         
+
+**Understanding:**         
+Understanding came from failure, not from reading. The UART dropping bytes was not understood until the timing math was done by hand. The black edge map was not understood until the raw byte values were printed. The stall at 1024 bytes was not understood until the Vivado caching behavior was identified. Every real understanding in this project was earned by a specific failure that forced a closer look at something previously assumed to be working.           
+
+**Iteration:**              
+The project went through approximately six distinct FSM architectures. The early ones were more ambitious — overlapping receive and transmit, ACK handshaking, dynamic threshold updates mid-stream. The final one is the simplest of all of them and the only one that works reliably. Iteration did not add complexity, it removed it. Each cycle of breaking and fixing converged toward a design with fewer states, fewer assumptions, and fewer things that could go wrong.
 
 
 ## 18.4 If You Had One More hour
@@ -569,7 +586,7 @@ Before submission, confirm that:
 - [x] Purchase list is complete
 - [x] Budget summary is complete
 - [x] Mechanical planning is documented if applicable
-- [ ] App planning is documented if applicable
+- [x] App planning is documented if applicable
 - [x] Code flowchart is added
 - [x] Task breakdown is complete
 - [x] Weekly logs are updated
@@ -578,7 +595,6 @@ Before submission, confirm that:
 - [x] Playtesting notes are included
 - [x] Build photos are included
 - [x] Final reflection is written
-<img width="1131" height="1600" alt="image" src="" />
 
 ---
 
