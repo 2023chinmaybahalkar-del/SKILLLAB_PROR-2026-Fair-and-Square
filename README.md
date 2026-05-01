@@ -96,15 +96,13 @@ List what inspired the project.
 
 | Source Type | Title / Link                                                        | What Inspired You                                                                         |
 | ----------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `[Video]`   | `https://www.instagram.com/reel/DW4CT7WCDry/?igsh=cXg3dzAxYmdncDBo` | `How projection mapping can be used to create interactive digital + physical experiences` |
-|             |                                                                     |                                                                                           |
-|             |                                                                     |                                                                                           |
+| `[Video]`   | `https://youtu.be/BndWx6UUtMQ?si=wZRYt1RuIHBTUKzz` | `How high-speed edge detection can enable real-time projection mapping that seamlessly interacts with dynamic, moving surfaces.` |
 
 ## 2.2 Original Twist
 
 The originality of this project lies in the move away from traditional software-based image filters toward a custom-tailored hardware pipeline. While most edge detection is performed using high-level software libraries (like OpenCV) on a CPU, this project recreates that functionality at the gate level.The key original aspects include:
-- Custom "Max-Min" Hardware Logic: Instead of using resource-heavy Sobel or Canny kernels that require complex multiplication and large memory buffers, this project uses a streamlined range-based algorithm. By calculating the difference between the maximum and minimum intensity in a $1 \times 4$ pixel block, the system achieves edge detection using only comparators and subtractors, significantly reducing the FPGA resource footprint.
-- Hardware-Software Handshaking: The project implements a unique UART-coupled FSM (Finite State Machine). The FPGA doesn't just run a loop; it remains in a reactive state, waiting for a specific command byte ($0xFF$) and a dynamic threshold value from the host. This allows the user to tune the hardware's sensitivity in real-time from the Python interface without needing to re-synthesize the Verilog code.
+- **Custom "Max-Min" Hardware Logic:** Instead of using resource-heavy Sobel or Canny kernels that require complex multiplication and large memory buffers, this project uses a streamlined range-based algorithm. By calculating the difference between the maximum and minimum intensity in a $1 \times 4$ pixel block, the system achieves edge detection using only comparators and subtractors, significantly reducing the FPGA resource footprint.
+- **Hardware-Software Handshaking:** The project implements a unique UART-coupled FSM (Finite State Machine). The FPGA doesn't just run a loop; it remains in a reactive state, waiting for a specific command byte ($0xFF$) and a dynamic threshold value from the host. This allows the user to tune the hardware's sensitivity in real-time from the Python interface without needing to re-synthesize the Verilog code.
 
 ---
 
@@ -121,10 +119,10 @@ Priya is a third-year ECE student who has heard about FPGAs but never seen one d
 ## 4.1 Definition of “Usable”
 
 The project is considered "usable" when it achieves a reliable end-to-end data cycle between the host PC and the FPGA hardware.
-- Successful Handshaking: The FPGA must correctly identify the $0xFF$ start command and update its internal threshold register based on the user's input from the Python script.
-- Data Integrity: The system must transmit, process, and return a full $128 \times 128$ image frame without dropping pixels or stalling during the UART transfer.
-- Visual Accuracy: The resulting binary map must clearly represent the high-contrast boundaries of the original image, confirming that the "max-min" logic is functioning as intended.
-- Repeatability: The user must be able to run the process multiple times with different threshold values without needing to reset the FPGA hardware manually.
+- **Successful Handshaking:** The FPGA must correctly identify the $0xFF$ start command and update its internal threshold register based on the user's input from the Python script.
+- **Data Integrity:** The system must transmit, process, and return a full $128 \times 128$ image frame without dropping pixels or stalling during the UART transfer.
+- **Visual Accuracy:** The resulting binary map must clearly represent the high-contrast boundaries of the original image, confirming that the "max-min" logic is functioning as intended.
+- **Repeatability:** The user must be able to run the process multiple times with different threshold values without needing to reset the FPGA hardware manually.
 
 
 ## 4.2 Minimum Usable Version
@@ -157,37 +155,45 @@ Check all that apply.
 - [x] Screen/UI-based
 - [ ] Fabricated structure
 - [ ] Game logic based
-- [x] Installation
+- [ ] Installation
 - [ ] Other:
 
 ## 5.2 High-Level System Description
 
-Explain how the system works in simple terms.
-
-## 5.2 High-Level System Description
-
-Explain how the system works in simple terms.
-
-- **Input:** The input process begins on a host PC. A Python script takes a standard digital image (e.g., JPEG or PNG) and performs two main tasks
+- **Input:**   
+The input process begins on a host PC. A Python script takes a standard digital image (e.g., JPEG or PNG) and performs two main tasks
   - **Preprocessing:** It converts the image to grayscale and resizes it to a $128 \times 128$ resolution to fit within the FPGA's memory constraints.
   - **Transmission:** The PC sends a "start" command ($0xFF$) followed by a user-defined sensitivity threshold and the raw pixel data via a USB-to-UART serial interface.
-- **Processing:** Once the data enters the Spartan-7 FPGA, the internal logic takes over
+- **Processing:**   
+Once the data enters the Spartan-7 FPGA, the internal logic takes over
   - **Storage:** The incoming pixels are stored in a Frame Buffer (BRAM).Buffering: A "Pixel Buffer" module groups the raw data into blocks of four pixels.
   - **Edge Detection Logic:** The system calculates the difference between the brightest and darkest pixel in each block. If this difference is greater than the user's threshold, the block is flagged as an "edge."
   - **Control:** A Finite State Machine (FSM) coordinates the timing to ensure pixels are processed only after they have been fully received.
-- **Output:** After processing, the FPGA generates a binary edge map.Serialization: The FSM sends the results (1 for an edge, 0 for flat ground) back through the UART TX module.
+- **Output:**   
+After processing, the FPGA generates a binary edge map.
+  - **Serialization:** The FSM sends the results (1 for an edge, 0 for flat ground) back through the UART TX module.
   - **Reconstruction:** The Python script receives these bytes and reconstructs them into a $128 \times 128$ image.
   - **Display:** The final output is a side-by-side visual comparison on the PC screen showing the original image and the detected hardware-generated edges.
-- **Physical Structure:** The physical setup consists of:
+- **Physical Structure:**
   - **Boolean Board:** A Spartan-7 FPGA board which houses the programmable logic, memory, and clock source.
   - **Communication Link:** A Micro-USB cable connecting the board to the PC, serving as the UART serial bridge.
   - **PC:** Preprocessing and Host side control.
-- **App Interaction:** Interaction occurs through the Python Terminal and GUI. The user interacts with the system by modifying the THRESHOLD variable in the script. The Python application manages the "handshake," informing the user when the board has finished booting, showing the progress of pixel transmission, and finally launching a window to display the processed result.
+- **App Interaction:**   
+Interaction occurs through the Python Terminal and GUI. The user interacts with the system by modifying the THRESHOLD variable in the script. The Python application manages the "handshake," informing the user when the board has finished booting, showing the progress of pixel transmission, and finally launching a window to display the processed result.
 
 ## 5.3 Input / Output Map
 
 | System Part                              | Type            | What It Does                                                               |
-
+|----------    |----------      |------------     |
+| OpenCV & Numpy | Processing (SOFTWARE) | Preprocesses input images |
+| Python Script | Control & Communication | Allows user to control threshold for quality and transmits data to FPGA |
+| UART Module FPGA | Communication | Recieves data from laptop and sends processed data back |
+| BRAM | Storage | Stores data on FPGA for processing |
+| Pixel Buffer | Storage | Accumulates 4 pixels into a 32 bit block|
+| Split Logic Module | Processing (HARDWARE) | Computes min/max, compares to threshold |
+| Result Buffer | Storage | Stores processed pixel data|
+| Python Visualise | Output | Reconstructs and displays output recieved from FPGA alongside input |
+| LEDs| Output (DEBUG) | Shows current FSM state|
 
 ---
 
@@ -210,26 +216,11 @@ Example:
 
 ## 6.2 Labeled Build Sketch/architecture/flow diagram/algorithm
 
-Add a sketch with labels showing:
-
-- structure,
-- electronics placement,
-- user touch points,
-- moving parts,
-- output elements.
-
-**Insert image below:**  
-`[Upload image and link here]`
-<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/95637f31-b4e7-4427-a9e1-4b63fbeb0ac5" />
+<img width="738" height="701" alt="image" src="https://github.com/user-attachments/assets/c821b10a-3194-4545-a521-51381790b2cd" />
 
 ## 6.3 Approximate Dimensions
 
-| Dimension        | Value   |
-| ---------------- | ------- |
-| Length           | `16 cm` |
-| Width            | `16 cm` |
-| Height           | `8 cm`  |
-| Estimated weight | `400 g` |
+`-`
 
 ---
 
@@ -245,16 +236,11 @@ Add a sketch with labels showing:
 
 ## 7.2 Wiring Plan
 
-`The FPGA is connected to Laptop via the UART/PWR Port, which is micro-USB type connection on FPGA end and USB-A type connection on Laptop end.
+The FPGA is connected to Laptop via the UART/PWR Port, which is micro-USB type connection on FPGA end and USB-A type connection on Laptop end.
 
 ## 7.3 Circuit Diagram/architecture diagram
 
-Insert a hand-drawn or software-made circuit diagram.
-
-**Insert image below:**  
-`[Upload image and link here]`
-<img width="867" height="1156" alt="" src="" />
-
+`-`
 
 # 7.4. Power Plan
 
@@ -280,57 +266,24 @@ Insert a hand-drawn or software-made circuit diagram.
 
 ## 8.2 Software Logic/Algorithm
 
-Describe what the code must do.
-
-Include:
-
-- startup behavior,
-- input handling,
-- sensor reading,
-- decision logic,
-- output behavior,
-- communication logic,
-- reset behavior.
-
-**Response:**  
-`
-
-- **Sample Startup behavior:**  
-  The Raspi/FPGA initializes motor pins, PWM control, and starts a WiFi access point with a web server. The laptop initializes camera input, tracking system, and projection mapping.
+- **Startup behavior:**  
+  The Spartan-7 FPGA initializes the internal Finite State Machine (FSM), clears the Block RAM (BRAM) address pointers, and enters a low-power wait state (S_WAIT_FF). Simultaneously, the Python script on the laptop initializes the serial COM port.
 - **Input handling:**  
-  Movement commands are received from the laptop (pygame sends http requests)
+  The Python interface captures the user's desired sensitivity threshold. It then imports preprocessed data—a flattened 1D array of 8-bit grayscale pixels—generated by a separate script. These inputs are serialized and queued for transmission over the UART link.
 - **Sensor reading:**  
-  The camera continuously captures frames, and OpenCV detects ArUco markers to determine the car’s position and orientation.
+  The system "reads" digital image data as its primary input. The UART RX module continuously monitors the incoming bitstream to reconstruct 8-bit pixel values, triggering the rx_ready flag whenever a new byte is captured.
 - **Decision logic:**  
-  The system maps the car’s position into a virtual coordinate system and checks for nearby obstacles or collisions. If movement is valid, the command is allowed; if not, it is blocked or replaced with a feedback action (like a slight shake).
+  The core logic utilizes a "Max-Min" comparison within the split_logic module. The FSM buffers four pixels into a 32-bit register and calculates the intensity range ($\Delta P = \max - \min$). If this difference exceeds the user-defined threshold stored in the threshold_reg, the logic assigns a binary "1" (edge) to that block; otherwise, it is assigned a "0".
 - **Output behavior:**  
-  The ESP32 drives the motors using PWM signals to control speed and direction. The projector displays the updated game environment, including obstacles, targets, and feedback visuals.
+  The FPGA generates a binary edge map and stores it in the output buffer. This data is then shifted out through the UART TX module to the laptop, where the Python script reconstructs the bits into a $128 \times 128$ image for visual display. On-board LEDs provide physical feedback on the current FSM state.
 - **Communication logic:**  
-  The laptop sends HTTP requests (e.g., `/forward`, `/left`) to the ESP32 over WiFi. The ESP32 parses these commands and executes motor actions.
+  The system is "UART-coupled," with the execution flow governed by the host. The laptop sends a command byte ($0xFF$) to trigger the FPGA, followed by the threshold value and the pixel stream. The FPGA responds by sending back processed results once the computation for a block is complete.
 - **Reset behavior:**  
-  If no command is received within a short timeout, the ESP32 stops the motors. The game resets when a level is completed or restarted.`
+  The system returns to the S_WAIT_FF state after an image transmission is finished, clearing temporary registers while retaining the threshold value. If communication is interrupted, re-sending the $0xFF$ command from the host resets the FPGA's address pointers for a fresh transmission.
 
 ## 8.3 Code Flowchart
 
-Insert a flowchart showing your code logic.
-
-Suggested sequence:
-
-- start,
-- initialize,
-- wait for input,
-- read input,
-- decision,
-- trigger output,
-- repeat or reset,
-- error handling.
-
-**Insert image below:**  
-<img width="1600" height="1200" alt="image" src="" />
-<img width="1600" height="1200" alt="image" src="" />
-
-
-
+<img width="902" height="770" alt="EMBFLO" src="https://github.com/user-attachments/assets/90e767a4-2814-4ede-b1ed-6f99b6bd0150" />
 
 # 9. Bill of Materials
 
@@ -338,46 +291,38 @@ Suggested sequence:
 
 | Item                             | Quantity | In Kit? | Need to Buy? | Estimated Cost | Material / Spec               | Why This Choice?          |
 | -------------------------------- | --------:| ------- | ------------ | --------------:| ----------------------------- | ------------------------- |
-| `[RASPI]`                        | `1`      | `Yes`   | `No`         | `0`            | `38 Pin ESP32`                | `[To control components]` |
-| `[Motor Driver]`                 | `[1]`    | `[Yes]` | `[No]`       | `0`            | `[LN296]`                     | `[To drive both motors]`  |
-| `[DC Motors and wheel]`          | `[2]`    | `[No]`  | `[Yes]`      | `[150]`        | `[BO Motors and 6 cm wheels]` | `[high torque motors]`    |
-| `[Buck Converter]`               | `[1]`    | `[No]`  | `[Yes]`      | `[75]`         |                               |                           |
-| `[Li-ion batteries with holder]` | `[1]`    | `[No]`  | `[Yes]`      | `[200]`        |                               |                           |
+| `Spartan-7 Boolean Board`        | `1`      | `Yes`   | `No`         | `9000`       | `xc7s50csga324-1`        | `Provides the necessary FPGA fabric and integrated UART-to-USB bridge.` |
+| `Micro-USB Cable`                 | `1`    | `Yes` | `No`       | `250`            | `Standard USB 2.0`                     | `Easy UART using Laptop`  |
+| `Laptop`          | `1`    | `yes`  | `No`      | `-`        | `Windows/Linux with Python 3.x` | `Friendly host side control, preprocessing, visualisation`    |
+
 
 ## 9.2 Material Justification
 
-Explain why you selected your main materials and components.
-
-**Response:**  
-`DC motors (BO motors) were chosen instead of servos or steppers because the system requires continuous rotation for movement rather than precise angular control (Previously, we were considering using steppers as we were planning on tracking movement on the ESP using its relative position from an origin, but since we're using a camera now, this is not required). A motor driver (L298N) was used to allow bidirectional control and speed variation using PWM.`
+`The Spartan-7 Boolean Board was selected because it provides a cost-effective yet powerful platform for entry-level hardware acceleration. It contains sufficient Block RAM (BRAM) to store a full $128 \times 128$ image frame ($16,384$ bytes), which is critical for our "Receive-Process-Transmit" workflow. Unlike a traditional microcontroller, the FPGA allows us to implement the "Max-Min" edge detection logic in a single clock cycle through spatial parallelism.`
 
 
 ## 9.3 Items You chose
 
 | Item                 | Why Needed               | Purchase Link | Latest Safe Date to Procure | Status       |
 | -------------------- | ------------------------ | ------------- | --------------------------- | ------------ |
-| `BO Motors + Wheels` | `Drive system for car`   | `robu.in`     | `15th April`                | `[Received]` |
-| `Buck Converter`     | `Stable power for ESP32` | `local store` | `before testing`            | `[Received]` |
-| `Li-ion Batteries`   | `Portable power`         | `local store` | `before testing`            | `Recieved`   |
+| `Spartan-7 Boolean Board` | `Main Logic, parallel performance`   | `-`     | `-`                | `Received` |
+| `Micro-USB Cable`     | `Data Transmission` | `-` | `-`            | `Received` |
+| `Laptop`   | `Preprocessing and Host Control`         | `-` | `-`            | `Recieved`   |
 
 ## 9.4 Budget Summary
 
 | Budget Item           | Estimated Cost              |
 | --------------------- | ---------------------------:|
-| Electronics           | `[400]`                     |
-| Mechanical parts      | `[200]`                     |
-| Fabrication materials | `[0 (Available on campus)]` |
-| Purchased extras      | `[0]`                       |
-| Contingency           | `[300]`                     |
-| **Total**             | `[900]`                     |
+| Electronics           | `9000`                     |
+| Mechanical parts      | `-`                     |
+| Fabrication materials | `-` |
+| Purchased extras      | `0`                       |
+| Contingency           | `0`                     |
+| **Total**             | `9000`                     |
 
 ## 9.5 Budget Reflection
 
-If your cost is too high, what can be simplified, removed, substituted, or shared?
-
-**Response:**  
-
----
+Can acquire better board and achieve real time + better results.
 
 # 10. Planning the Work
 
@@ -508,86 +453,54 @@ What is the single biggest uncertainty in your project at this stage?
 
 ## 14.3 Playtesting Notes
 
-| Tester      | What They Did                        | What Confused Them                    | What They Enjoyed                         | What You Will Change                          |
-| ----------- | ------------------------------------ | ------------------------------------- | ----------------------------------------- | --------------------------------------------- |
-| `Gopal` | `Tried navigating through obstacles` | `Some obstacles ewren't clear enough` | `Liked projection + real car interaction` | `Add a slight red highlight around obstacles` |
-
-
----
+`-`
 
 # 15. Build Documentation
 
 ## 15.1 Fabrication Process(if any)
-
-Describe how the project was physically made.
-
-Include:
-
-- cutting,
-- 3D printing,
-- assembly,
-- fastening,
-- wiring,
-- finishing,
-- revisions.
-
-**Response:**  
-`The fabrication process involved designing, manufacturing, assembling, and refining both the physical structure and electronic integration of the system.`
-
-`Design (CAD Modeling):
-The initial model was created using CAD software, where components were designed based on the actual dimensions of the electronic parts. This ensured accurate fitting and minimized errors during assembly.
-Cutting (Laser Cutting):
-The designed parts were fabricated using laser cutting techniques. Sheets were cut precisely according to the CAD model to create the structural base and mounts for components.`
-
-`Components were fixed using adhesives and mechanical supports. Certain parts were intentionally kept modular (not permanently fixed) to allow easy replacement and modification of electronics.
-Surface Finishing:
-Some parts were sanded to smooth rough edges after cutting. Sawdust mixed with adhesive was used to fill gaps and uneven edges, improving structural finish. The final structure was then painted for better aesthetics and durability.`
-
-`Environment Setup (Dark Room Fabrication):
-To enhance projection visibility, a controlled dark environment was created using Z-boards, paper sheets, and bedsheets. This minimized external light interference and improved projection clarity.
-Revisions and Iterations:
-Multiple adjustments were made throughout the process, including refining alignment, improving structural stability, repositioning components, and optimizing the interaction between the physical car and projected environment.`
+ 
+`-`
 
 ## 16 Build Photos
 
-Add photos throughout the project.
+Final Output
 
-Suggested images:
-
-- early sketch,
-- prototype,
-- electronics testing,
-- mechanism test,
-- app screenshot,
-- final build.
-- <img width="960" height="1280" alt="WhatsApp Image 2026-04-24 at 9 46 02 AM (1)" src="https://github.com/user-attachments/assets/74baa570-5770-483e-be6d-d2f03386e37c" />
-
-
-
+<img width="325" height="192" alt="op" src="https://github.com/user-attachments/assets/b6721b45-7428-465d-b188-69ccdca735de" />
 
 
 # 17. Final Outcome
 
 ## 17.1 Final Description
 
-Describe the final version of your project.
-
-**Response:**  
-
+The final system is a working UART-based FPGA image edge detection pipeline. A Python script on a Windows laptop sends any 128×128 grayscale image to a Xilinx Spartan-7 FPGA (Boolean Board) over USB serial at 115200 baud. The FPGA stores the image in block RAM, processes all 16,384 pixels in 4-pixel blocks using a hardware min-max edge detector, stores 4,096 binary results, and transmits them back. The Python script reconstructs and displays a binary edge map alongside the original image. The system completes a full round-trip in approximately 8 seconds and resets automatically for the next frame.
 
 ## 17.2 What Works Well
 
-
+- The UART RX/TX pipeline is robust with no dropped bytes at 115200 baud
+- The two-phase FSM (receive all then transmit all) eliminates race conditions completely
+- The boot delay cleanly handles the board's startup serial garbage
+- The 4-pixel block size gives reasonable spatial resolution while keeping result bandwidth low
+- LEDs accurately reflect FSM state, making debugging straightforward
+- The Python script handles stalls and incomplete transfers gracefully without crashing
 
 ## 17.3 What Still Needs Improvement
 
-
+- Edge resolution is still coarse — 4×1 pixel horizontal blocks miss vertical edges entirely
+- No real-time processing; each image takes ~8 seconds end to end
+- Threshold is set at script launch, not adjustable live
+- Image size is fixed at 128×128; larger images would need protocol changes
+- Communication Bottleneck:   
+  Bandwidth mismatch where the slow, bit-by-bit UART serial protocol (115,200 baud) starves the high-speed FPGA logic (100 MHz) of data, forcing the "Ferrari" engine to wait 1.4 seconds just to receive a single frame. Migrating to a high-speed interface like SPI would be necessary for true real-time video performance.
+    
 ## 17.4 What Changed From the Original Plan
 
-How did the project change from the initial idea?
-
-**Response:**  
-
+The project evolved from a high-speed embedded system into a specialized hardware-accelerated image processing unit. The primary changes include:
+- **Platform Pivot:**    
+The initial concept relied on a PYNQ-Z2 or Raspberry Pi to handle live video streaming. Due to hardware constraints, the design was adapted to the Spartan-7 (Boolean Board), focusing on standalone RTL logic.
+- **Communication Interface:**     
+The plan for real-time video via AXI-Stream or SPI was replaced with a stable UART link at 115,200 baud. This shifted the focus from "60 FPS video" to "frame-by-frame hardware acceleration" via the Micro-USB bridge.
+- **Task Partitioning:**     
+Instead of using an onboard ARM processor for image capture, a Host PC (Python/OpenCV) was used to resize ($128 \times 128$) and grayscale images before feeding them to the FPGA for the mathematical "heavy lifting."
 
 ---
 
@@ -631,11 +544,16 @@ What did you learn about:
 
 ## 18.4 If You Had One More hour
 
-What would you improve next?
+If granted an additional hour to enhance the system, I would execute the following improvements in serial order to systematically break the current performance bottlenecks:
 
-**Response:**  
+- **Acquire PYNQ-Z2 or Raspberry Pi for Real-Time Acquisition:**        
+   The first priority would be to integrate a dedicated embedded controller to replace the laptop-based UART feed. This would unlock the use of high-speed SPI or AXI-Stream interfaces, eliminating the 1.4-second serial delay and allowing for a live, low-latency video feed.
 
-` `
+- **Scale Hardware Parallelism:**       
+   With a faster data stream established, I would then refactor the split_logic module into a Wide-Bus Architecture. By expanding the BRAM data width to 128 bits, the FPGA could process 16 pixels in a single clock cycle, fully utilizing the Spartan-7's parallel processing power to match the high-speed input.
+
+- **Implement Live Threshold Tuning:**        
+  Finally, I would map the threshold_reg to the on-board slide switches. This would provide a tactile "User Interface" to calibrate the edge-detection sensitivity in real-time, ensuring the hardware remains robust and adaptable to the specific lighting conditions of the demo environment.
 
 ---
 
