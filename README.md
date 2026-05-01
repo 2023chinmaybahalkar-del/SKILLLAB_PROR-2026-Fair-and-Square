@@ -57,41 +57,34 @@ By the final review, this README should clearly show:
 
 ## 1.1 Studio / Group Name
 
-`Project^2`
+`Fair and Square`
 
 ## 1.2 Team Members
 
-| Name                  | Primary Role                    | Secondary Role   | Strengths Brought to the Project |
-| --------------        | ------------------------------- | --------------   | -------------------------------- |
-| Kavish Chauhan        | `                             ` | `             `  | `                           `    |
-| Chinmay Bahalkar      | `                           `   | `        `       | `                           `    |
-| Pratyush Tripthi      |                                 |                  |                                  |
-| Nimesh Prabhu         |                                 |                  |                                  |
+| Name                  | Primary Role                  | Secondary Role               | Strengths Brought to the Project |
+| --------------        | ----------------------------- | --------------               | -------------------------------- |
+| Kavish Chauhan        | Implementation of 1st method  | Documentation                | Technical Finesse                |
+| Chinmay Bahalkar      | Github Updation               | Overall Research             | Critical Idea Thinker            |
+| Pratyush Tripthi      | Research of 1st solution      | Implementation of 2nd method | Surgical Curiosity               |
+| Nimesh Prabhu         | Research of 2nd Solution      | Implementation of 2nd method | Unquestiong Dicsiplined Teamwork |
 
 ## 1.3 Project Title
 
-`Real Time edge detection using FPGA`
-
-`(because Project-or)`
+Real Time edge detection using FPGA
 
 <img width="1600" height="1131" alt="image" src="https://github.com/user-attachments/assets/c64bfbd4-b3b7-43d9-83ad-c203a5aa11bc" />
 
 ## 1.4 One-Line Pitch
 
-`A hardware-optimized image processing engine that implements Min-Max Homogeneity Thresholding on FPGA to achieve high-precision edge detection through localized pixel variance analysis.`
+An FPGA based hardware accelerator that implements a custom pixel processing pipeline to detect edges in images using min-max thresholding logic.
 
 ## 1.5 Expanded Project Idea
 
-In 1–2 paragraphs, explain:
+This project is a hardware-based image processing system designed to perform edge detection using a Spartan-7 FPGA. The system uses custom Verilog logic to identify boundaries within an image. The implementation uses a "max-min" thresholding algorithm, which analyzes 1 x 4 pixel blocks to determine if a significant brightness transition exists. By offloading these calculations to the FPGA, the project demonstrates how dedicated hardware can be used to accelerate specific data-processing tasks.
 
-- what your project is,
-- what kind of experience it creates,
-- what technologies are involved.
+The system operates as an interactive peripheral controlled by a host PC. Using a Python interface, the user selects an image and defines a sensitivity threshold. This data is transmitted to the FPGA via a UART interface, triggering the hardware's processing cycle. Once the FPGA identifies the edges, it transmits the resulting binary map back to the PC for visualization. This workflow creates a practical example of hardware-software co-design, where the FPGA acts as a specialized co-processor for the high-level Python application.   
 
-**Response:**  
-`This project implements a high-efficiency hardware accelerator for edge detection using the **Min-Max Homogeneity Thresholding** technique on an FPGA. Unlike standard gradient-based methods like Sobel, this approach analyzes localized pixel variance by calculating the difference between the maximum and minimum intensity values within a $3 \times 3$ sliding window. By offloading this computationally intensive task from a CPU to dedicated FPGA logic, the system achieves massive throughput and deterministic latency, making it ideal for high-speed image analysis where consistency is critical.
-
-The experience created is one of **instantaneous visual feedback and precision**. By utilizing on-chip Block RAM (BRAM) and a pipelined architecture, the project demonstrates how hardware can process static images with near-zero delay, transforming raw pixel data into a high-contrast map of structural boundaries. The technology stack centers on **Verilog/SystemVerilog** for hardware description, **Xilinx Vivado or Intel Quartus** for synthesis and implementation, and **Python/MATLAB** for pre-processing images into memory-initialization files (.COE/.HEX), bridging the gap between high-level algorithmic theory and low-level hardware execution.`
+OpenCV & NumPy is used for preprocessing the image, Python is the host side language, Communication protocol is UART, Verilog on Vivado used for designing, synthesising and implementing the solution on FPGA
 
 ---
 
@@ -109,16 +102,9 @@ List what inspired the project.
 
 ## 2.2 Original Twist
 
-What makes your project original?
-
-**Response:**  
-**What it is:** A high-speed hardware accelerator that performs edge detection on static images using **Min-Max Homogeneity Thresholding**. Unlike standard methods that use complex derivatives, this project calculates the intensity "spread" within a sliding $3 \times 3$ window to identify structural boundaries.
-
-**The Experience:** It provides a **near-zero latency** processing environment where images are transformed into high-contrast edge maps instantly. By offloading the math to FPGA logic, it eliminates the "stutter" or delay found in software-based image processing.
-
-**Technologies Involved:** * **Hardware:** FPGA (Xilinx/Intel) using **Verilog/SystemVerilog**.
-* **Memory:** **Block RAM (BRAM)** and Line Buffers for high-speed pixel access.
-* **Software:** **Python** for image-to-HEX conversion and **Vivado** for hardware synthesis.
+The originality of this project lies in the move away from traditional software-based image filters toward a custom-tailored hardware pipeline. While most edge detection is performed using high-level software libraries (like OpenCV) on a CPU, this project recreates that functionality at the gate level.The key original aspects include:
+- Custom "Max-Min" Hardware Logic: Instead of using resource-heavy Sobel or Canny kernels that require complex multiplication and large memory buffers, this project uses a streamlined range-based algorithm. By calculating the difference between the maximum and minimum intensity in a $1 \times 4$ pixel block, the system achieves edge detection using only comparators and subtractors, significantly reducing the FPGA resource footprint.
+- Hardware-Software Handshaking: The project implements a unique UART-coupled FSM (Finite State Machine). The FPGA doesn't just run a loop; it remains in a reactive state, waiting for a specific command byte ($0xFF$) and a dynamic threshold value from the host. This allows the user to tune the hardware's sensitivity in real-time from the Python interface without needing to re-synthesize the Verilog code.
 
 ---
 
@@ -126,12 +112,7 @@ What makes your project original?
 
 ## 3.1 User Journey 
 
-Describe exactly how a user will use the project.Make it a story
-**Response:**  
-
-                                                  |
-
-
+Priya is a third-year ECE student who has heard about FPGAs but never seen one do anything visual. She plugs the Boolean Board into her laptop via USB, opens a terminal, and runs a single Python script. The script asks for nothing — it preprocesses a photo of a spinning top, waits three seconds for the board to boot, then starts streaming pixel data over the serial port. She watches the progress counter tick upward: 4096, 8192, 12288, 16384 pixels sent. A second later, a window pops up. On the left is the original grayscale photo. On the right is a clean black-and-white edge map — the outline of the top, its stem, its shadow — all detected not by any software algorithm but by logic gates running at 100 million cycles per second inside the chip on the board in front of her. She changes the threshold from 30 to 15 and runs it again. More edges appear. She changes the image to a photo of her face. The FPGA doesn't know or care — it just processes pixels.
 
 ---
 
@@ -139,19 +120,24 @@ Describe exactly how a user will use the project.Make it a story
 
 ## 4.1 Definition of “Usable”
 
+The project is considered "usable" when it achieves a reliable end-to-end data cycle between the host PC and the FPGA hardware.
+- Successful Handshaking: The FPGA must correctly identify the $0xFF$ start command and update its internal threshold register based on the user's input from the Python script.
+- Data Integrity: The system must transmit, process, and return a full $128 \times 128$ image frame without dropping pixels or stalling during the UART transfer.
+- Visual Accuracy: The resulting binary map must clearly represent the high-contrast boundaries of the original image, confirming that the "max-min" logic is functioning as intended.
+- Repeatability: The user must be able to run the process multiple times with different threshold values without needing to reset the FPGA hardware manually.
 
 
 ## 4.2 Minimum Usable Version
 
-What is the smallest version of this project that still delivers the core experience?
-
-**Response:**  
-
+A single Python script that sends a hardcoded test image to the FPGA over UART and displays the edge map returned. The FPGA correctly identifies edge vs. flat blocks using the min-max threshold algorithm and transmits the result back. No GUI, no camera, no real-time feed — just one image in, one edge map out, working reliably.
 
 ## 4.3 Stretch Features
 
-What features are nice to have but not essential?
-
+- Live webcam feed processed frame by frame
+- Adjustable threshold via keyboard input without restarting the script
+- Overlay mode showing edges drawn on top of the original image in color
+- Support for larger image sizes (256×256)
+- Display edge map directly on HDMI output from the FPGA without sending back to laptop
 
 ---
 
@@ -162,42 +148,41 @@ What features are nice to have but not essential?
 Check all that apply.
 
 - [x] Electronics-based
-
 - [ ] Mechanical
-
-- [x] Sensor-based
-
+- [ ] Sensor-based
 - [x] App-connected
-
-- [x] Motorized
-
+- [ ] Motorized
 - [ ] Sound-based
-
 - [x] Light-based
-
 - [x] Screen/UI-based
-
-- [x] Fabricated structure
-
-- [x] Game logic based
-
+- [ ] Fabricated structure
+- [ ] Game logic based
 - [x] Installation
-
 - [ ] Other:
 
 ## 5.2 High-Level System Description
 
 Explain how the system works in simple terms.
 
-Include:
+## 5.2 High-Level System Description
 
-- input,
-- processing,
-- output,
-- physical structure,
-- app interaction if any.
+Explain how the system works in simple terms.
 
-**Response:**  
+- **Input:** The input process begins on a host PC. A Python script takes a standard digital image (e.g., JPEG or PNG) and performs two main tasks
+  - **Preprocessing:** It converts the image to grayscale and resizes it to a $128 \times 128$ resolution to fit within the FPGA's memory constraints.
+  - **Transmission:** The PC sends a "start" command ($0xFF$) followed by a user-defined sensitivity threshold and the raw pixel data via a USB-to-UART serial interface.
+- **Processing:** Once the data enters the Spartan-7 FPGA, the internal logic takes over
+  - **Storage:** The incoming pixels are stored in a Frame Buffer (BRAM).Buffering: A "Pixel Buffer" module groups the raw data into blocks of four pixels.
+  - **Edge Detection Logic:** The system calculates the difference between the brightest and darkest pixel in each block. If this difference is greater than the user's threshold, the block is flagged as an "edge."
+  - **Control:** A Finite State Machine (FSM) coordinates the timing to ensure pixels are processed only after they have been fully received.
+- **Output:** After processing, the FPGA generates a binary edge map.Serialization: The FSM sends the results (1 for an edge, 0 for flat ground) back through the UART TX module.
+  - **Reconstruction:** The Python script receives these bytes and reconstructs them into a $128 \times 128$ image.
+  - **Display:** The final output is a side-by-side visual comparison on the PC screen showing the original image and the detected hardware-generated edges.
+- **Physical Structure:** The physical setup consists of:
+  - **Boolean Board:** A Spartan-7 FPGA board which houses the programmable logic, memory, and clock source.
+  - **Communication Link:** A Micro-USB cable connecting the board to the PC, serving as the UART serial bridge.
+  - **PC:** Preprocessing and Host side control.
+- **App Interaction:** Interaction occurs through the Python Terminal and GUI. The user interacts with the system by modifying the THRESHOLD variable in the script. The Python application manages the "handshake," informing the user when the board has finished booting, showing the progress of pixel transmission, and finally launching a window to display the processed result.
 
 ## 5.3 Input / Output Map
 
@@ -254,24 +239,13 @@ Add a sketch with labels showing:
 
 | Component                 | Quantity | Purpose                               |
 | ------------------------- | --------:| ------------------------------------- |
-| `[Raspi/FPGA]`                 | `1`      | `[Main controller]`                   |
-| `[L298N Motor Driver]`    | `1`      | `[Control Motors]`                    |
-| `[BO Motors]`             | `2`      | `[Rotate wheels]`                     |
-| `[Buck Converter]`        | `1`      | `[Power ESP32]`                       |
-| `[Li Ion Battery Pack]`   | `2`      | `[Power]`                             |
-| `[Projector]`             | `1`      | `[Display obstacles]`                 |
-| `Camera (Webcam / Phone)` | `1`      | `[Tracks car position using markers]` |
+| `FPGA`                  | `1`      | `Main logic`                   |
+| `Laptop`                | `1`      | `Controller`                        |
+
 
 ## 7.2 Wiring Plan
 
-Describe the main electrical connections.
-
-**sample Response:**  
-`The RASPI is connected to the motor driver (L298N) using four GPIO pins (18,19; 22,23) to control motor direction (IN1, IN2, IN3, IN4). Two PWM-capable pins (ENA and ENB; 25 and 26) are connected to control the speed of each motor.
-
-The motors are connected to the output terminals of the motor driver. The motor driver is powered directly by the battery pack (higher voltage), while the ESP32 receives regulated 5V from the buck converter.
-
-All components share a common ground to ensure stable operation. The projector and camera are connected to the laptop, which handles tracking and game logic separately.`
+`The FPGA is connected to Laptop via the UART/PWR Port, which is micro-USB type connection on FPGA end and USB-A type connection on Laptop end.
 
 ## 7.3 Circuit Diagram/architecture diagram
 
@@ -286,10 +260,10 @@ Insert a hand-drawn or software-made circuit diagram.
 
 | Question         | Response                                                                                                                                          |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Power source     | `Battery (Li-ion pack)`                                                                                                                           |
-| Voltage required | `~6–8.4V for motors (via driver), stepped down to 5V for ESP32 (buck converter)`                                                                  |
-| Current concerns | `Motors can draw high current under load, which may cause voltage drops affecting ESP32 and WiFi stability`                                       |
-| Safety concerns  | `Avoid over-discharging Li-ion batteries, ensure proper voltage regulation, prevent short circuits, and secure wiring to avoid loose connections` |
+| Power source     | `Laptop Battery`                                                                                                                           |
+| Voltage required | `5VDC for Boolean Board`                                                                  |
+| Current concerns | `-`                                       |
+| Safety concerns  | `-` |
 
 ---
 
@@ -299,10 +273,10 @@ Insert a hand-drawn or software-made circuit diagram.
 
 | Tool / Platform                | Purpose                                        |
 | ------------------------------ | ---------------------------------------------- |
-| `[MicroPython]`                | `Control ESP32`                                |
-| `[Python/PyGame/OpenCV]`       | `Track markers, game logic, create projection` |
-| `[Fusion/Blender/Illustrator]` | `[Prototyping structure]`                      |
-|                                |                                                |
+| `Vivado`                       | `Write logic & Design System`                  |
+| `Python`                       | `Host-Side Control Logic`                      |
+| `OpenCV & NumPy`                       | `Preprocessing image`                          |
+| `PySerial`                     | `Managing the UART interface with FPGA`        |
 
 ## 8.2 Software Logic/Algorithm
 
