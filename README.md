@@ -475,6 +475,8 @@ Final Output
 
 <img width="325" height="192" alt="op" src="https://github.com/user-attachments/assets/b6721b45-7428-465d-b188-69ccdca735de" />
 
+<img width="334" height="213" alt="output" src="https://github.com/user-attachments/assets/82722fbf-79a2-4e2a-8070-9f2bcc6c5792" />
+
 
 # 17. Final Outcome
 
