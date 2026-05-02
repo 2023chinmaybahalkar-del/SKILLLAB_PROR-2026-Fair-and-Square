@@ -66,7 +66,7 @@ By the final review, this README should clearly show:
 | Kavish Chauhan        | Implementation of 1st method  | Documentation                | Technical Finesse                |
 | Chinmay Bahalkar      | Github Updation               | Overall Research             | Critical Idea Thinker            |
 | Pratyush Tripthi      | Research of 1st solution      | Implementation of 2nd method | Surgical Curiosity               |
-| Nimesh Prabhu         | Research of 2nd Solution      | Implementation of 2nd method | Unquestioning Dicsiplined Teamwork |
+| Nimesh Prabhu         | Research of 2nd Solution      | Implementation of 2nd method | Unquestioning Disciplined Teamwork|
 
 ## 1.3 Project Title
 
@@ -288,7 +288,7 @@ The FPGA is connected to Laptop via the UART/PWR Port, which is micro-USB type c
 
 ## 9.2 Material Justification
 
-`The Spartan-7 Boolean Board was selected because it provides a cost-effective yet powerful platform for entry-level hardware acceleration. It contains sufficient Block RAM (BRAM) to store a full $128 \times 128$ image frame ($16,384$ bytes), which is critical for our "Receive-Process-Transmit" workflow. Unlike a traditional microcontroller, the FPGA allows us to implement the "Max-Min" edge detection logic in a single clock cycle through spatial parallelism.`
+`The Spartan-7 Boolean Board was selected because it provides a cost-effective yet powerful platform for entry-level hardware acceleration. It contains sufficient Block RAM (BRAM) to store a full 128 times 128 image frame (16,384 bytes), which is critical for our "Receive-Process-Transmit" workflow. Unlike a traditional microcontroller, the FPGA allows us to implement the "Max-Min" edge detection logic in a single clock cycle through spatial parallelism.`
 
 
 ## 9.3 Items You chose
